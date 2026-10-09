@@ -203,6 +203,7 @@ def test_scan_honours_extra_roots(tmp_path):
     assert {s.name for s in found} == {"extra"}
 
 
+@pytest.mark.skipif(os.name != "nt", reason="断言 junction 语义，Windows 专属")
 def test_mount_and_unmount_roundtrip(tmp_path):
     home = tmp_path / "home"
     src = _write_skill(home / ".agents/skills", "alpha")
@@ -238,6 +239,7 @@ def test_mount_uses_junction_on_windows(tmp_path):
     external.unmount(dest_root / "alpha")
 
 
+@pytest.mark.skipif(os.name != "nt", reason="断言 junction 语义，Windows 专属")
 def test_mount_replaces_stale_link(tmp_path):
     home = tmp_path / "home"
     old = _write_skill(home / ".agents/skills", "alpha")
